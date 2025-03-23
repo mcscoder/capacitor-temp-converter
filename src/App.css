@@ -1,0 +1,96 @@
+.app-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.input-container {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+input {
+  width: 80%;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.calculate-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.share-btn {
+  background-color: #2196f3;
+  color: white;
+}
+
+.camera-btn {
+  background-color: #9c27b0;
+  color: white;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.result-container {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.photo-container {
+  margin: 20px 0;
+}
+
+.user-photo {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 50%;
+  border: 3px solid #4caf50;
+}
+
+@media (min-width: 600px) {
+  .button-container {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
