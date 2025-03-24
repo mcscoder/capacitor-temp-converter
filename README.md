@@ -52,3 +52,13 @@ npx cap update android
 ```bash
 npx cap open android
 ```
+
+# Preview
+![image](https://github.com/user-attachments/assets/57e27e21-aa3b-4ce4-b39c-f911e7b4f4ce)
+![image](https://github.com/user-attachments/assets/7a863bf9-84c7-47d2-bc67-ba623c95f1d3)
+![image](https://github.com/user-attachments/assets/1f2e4aa2-bbb0-402f-a98c-bdb1f8d2e6d2)
+![image](https://github.com/user-attachments/assets/82199683-62e9-4736-b47f-f3c5382cb03a)
+
+
+
+
