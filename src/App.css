@@ -1,13 +1,15 @@
+/* App.css - Styles for the Temperature Converter App */
+
 .app-container {
-  max-width: 600px;
+  max-width: 500px;
   margin: 0 auto;
   padding: 20px;
-  font-family: Arial, sans-serif;
-  text-align: center;
+  font-family: "Roboto", Arial, sans-serif;
 }
 
-h1 {
-  color: #333;
+.app-title {
+  color: #2c3e50;
+  text-align: center;
   margin-bottom: 30px;
 }
 
@@ -15,82 +17,82 @@ h1 {
   margin-bottom: 20px;
 }
 
-label {
+.input-container label {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   font-weight: bold;
+  color: #34495e;
 }
 
-input {
-  width: 80%;
+.input-container input {
+  width: 100%;
   padding: 12px;
+  border: 1px solid #bdc3c7;
+  border-radius: 4px;
   font-size: 16px;
-  border: 2px solid #ddd;
-  border-radius: 5px;
 }
 
-.button-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 20px 0;
-}
-
-button {
-  padding: 12px 20px;
-  font-size: 16px;
+.convert-button {
+  width: 100%;
+  padding: 14px;
+  background-color: #3498db;
+  color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
+  font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.calculate-btn {
-  background-color: #4caf50;
-  color: white;
-}
-
-.share-btn {
-  background-color: #2196f3;
-  color: white;
-}
-
-.camera-btn {
-  background-color: #9c27b0;
-  color: white;
-}
-
-button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-}
-
-button:hover:not(:disabled) {
-  opacity: 0.9;
+.convert-button:hover {
+  background-color: #2980b9;
 }
 
 .result-container {
-  margin-top: 20px;
+  margin-top: 30px;
   padding: 15px;
-  background-color: #f5f5f5;
-  border-radius: 5px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.photo-container {
-  margin: 20px 0;
+.result {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: #27ae60;
 }
 
-.user-photo {
-  max-width: 200px;
-  max-height: 200px;
-  border-radius: 50%;
-  border: 3px solid #4caf50;
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-@media (min-width: 600px) {
-  .button-container {
-    flex-direction: row;
-    justify-content: center;
-  }
+.share-button,
+.location-button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.share-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.location-button {
+  background-color: #9b59b6;
+  color: white;
+}
+
+.location-container {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f1f8e9;
+  border-radius: 4px;
+  border-left: 5px solid #7cb342;
 }

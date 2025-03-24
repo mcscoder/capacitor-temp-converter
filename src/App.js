@@ -1,126 +1,120 @@
-import React, { useState } from 'react';
-import { Capacitor } from '@capacitor/core';
-import { LocalNotifications } from '@capacitor/local-notifications';
-import { Share } from '@capacitor/share';
-import { Camera, CameraResultType } from '@capacitor/camera';
-import './App.css';
+// App.js - Updated imports for newer Capacitor versions
+
+import React, { useState } from "react";
+import { LocalNotifications } from "@capacitor/local-notifications";
+import { Share } from "@capacitor/share";
+import { Geolocation } from "@capacitor/geolocation";
+import "./App.css";
 
 function App() {
-  const [birthYear, setBirthYear] = useState('');
-  const [age, setAge] = useState(null);
-  const [userPhoto, setUserPhoto] = useState(null);
+  const [celsius, setCelsius] = useState("");
+  const [fahrenheit, setFahrenheit] = useState("");
+  const [location, setLocation] = useState(null);
+  const [showLocation, setShowLocation] = useState(false);
 
-  // Calculate age based on birth year
-  const calculateAge = () => {
-    if (!birthYear) {
-      alert('Please enter your birth year!');
+  // Convert Celsius to Fahrenheit
+  const convertToFahrenheit = () => {
+    if (celsius === "" || isNaN(celsius)) {
+      alert("Please enter a valid temperature in Celsius");
       return;
     }
 
-    const currentYear = new Date().getFullYear();
-    const calculatedAge = currentYear - parseInt(birthYear);
+    const celsiusValue = parseFloat(celsius);
+    const fahrenheitValue = (celsiusValue * 9) / 5 + 32;
+    setFahrenheit(fahrenheitValue.toFixed(2));
 
-    setAge(calculatedAge);
-
-    // Show local notification
-    showNotification(calculatedAge);
+    // Show local notification after conversion
+    showNotification(celsiusValue, fahrenheitValue);
   };
 
-  // Show notification with the calculated age
-  const showNotification = async (calculatedAge) => {
-    if (Capacitor.isNativePlatform()) {
-      await LocalNotifications.requestPermissions();
-
-      await LocalNotifications.schedule({
-        notifications: [
-          {
-            title: 'Age Calculation Complete',
-            body: `Your age is ${calculatedAge} years old.`,
-            id: 1,
-            schedule: { at: new Date(Date.now() + 1000) }
-          }
-        ]
-      });
-    } else {
-      console.log('Local notifications are only available on native platforms');
-    }
+  // Show local notification
+  const showNotification = async (celsiusValue, fahrenheitValue) => {
+    await LocalNotifications.schedule({
+      notifications: [
+        {
+          title: "Temperature Conversion Complete",
+          body: `${celsiusValue}°C = ${fahrenheitValue.toFixed(2)}°F`,
+          id: new Date().getTime(),
+          sound: null,
+          attachments: null,
+          actionTypeId: "",
+          extra: null,
+        },
+      ],
+    });
   };
 
-  // Share age result
+  // Share conversion result
   const shareResult = async () => {
-    if (!age) {
-      alert('Please calculate your age first!');
+    if (fahrenheit === "") {
+      alert("Please convert a temperature first");
       return;
     }
 
-    if (Capacitor.isNativePlatform()) {
-      await Share.share({
-        title: 'My Age Calculation',
-        text: `I calculated my age using the Age Calculator app. I am ${age} years old!`,
-        dialogTitle: 'Share your age with friends'
-      });
-    } else {
-      console.log('Share API is only available on native platforms');
-    }
+    await Share.share({
+      title: "Temperature Conversion",
+      text: `${celsius}°C = ${fahrenheit}°F`,
+      dialogTitle: "Share your temperature conversion",
+    });
   };
 
-  // Take a photo using the camera
-  const takePhoto = async () => {
-    if (Capacitor.isNativePlatform()) {
-      try {
-        const image = await Camera.getPhoto({
-          quality: 90,
-          allowEditing: true,
-          resultType: CameraResultType.Uri
-        });
-
-        setUserPhoto(image.webPath);
-      } catch (error) {
-        console.error('Error taking photo:', error);
-      }
-    } else {
-      console.log('Camera API is only available on native platforms');
+  // Get current location (bonus feature)
+  const getCurrentLocation = async () => {
+    try {
+      const position = await Geolocation.getCurrentPosition();
+      setLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+      setShowLocation(true);
+    } catch (error) {
+      alert("Error getting location: " + error.message);
     }
   };
 
   return (
     <div className="app-container">
-      <h1>Age Calculator</h1>
-
-      {userPhoto && (
-        <div className="photo-container">
-          <img src={userPhoto} alt="User" className="user-photo" />
-        </div>
-      )}
+      <h1 className="app-title">Temperature Converter</h1>
 
       <div className="input-container">
-        <label htmlFor="birthYear">Enter your birth year:</label>
+        <label htmlFor="celsius">Enter Temperature (°C)</label>
         <input
           type="number"
-          id="birthYear"
-          value={birthYear}
-          onChange={(e) => setBirthYear(e.target.value)}
-          placeholder="e.g., 1990"
+          id="celsius"
+          value={celsius}
+          onChange={(e) => setCelsius(e.target.value)}
+          placeholder="Enter temperature in Celsius"
         />
       </div>
 
-      <div className="button-container">
-        <button className="calculate-btn" onClick={calculateAge}>
-          Calculate Age
-        </button>
+      <button className="convert-button" onClick={convertToFahrenheit}>
+        Convert to Fahrenheit
+      </button>
 
-        <button className="share-btn" onClick={shareResult} disabled={!age}>
-          Share Result
-        </button>
-
-        <button className="camera-btn" onClick={takePhoto}>
-          Take Photo
-        </button>
-      </div>
-
-      {age !== null && (
+      {fahrenheit && (
         <div className="result-container">
-          <h2>Your age is: {age} years</h2>
+          <h2>Result:</h2>
+          <p className="result">
+            {celsius}°C = {fahrenheit}°F
+          </p>
+
+          <div className="action-buttons">
+            <button onClick={shareResult} className="share-button">
+              Share Result
+            </button>
+
+            <button onClick={getCurrentLocation} className="location-button">
+              Get Location
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showLocation && location && (
+        <div className="location-container">
+          <h3>Your Current Location:</h3>
+          <p>Latitude: {location.latitude}</p>
+          <p>Longitude: {location.longitude}</p>
         </div>
       )}
     </div>
