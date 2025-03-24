@@ -1,14 +1,16 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  "appId": "com.yourname.temperatureconverter",
-  "appName": "Temperature Converter",
+  "appId": "com.yourname.tempconverter",
+  "appName": "TempConverter",
   "webDir": "build",
+  "server": {
+    "androidScheme": "https"
+  },
   "plugins": {
     "LocalNotifications": {
-      "smallIcon": "ic_stat_icon_config_sample",
-      "iconColor": "#488AFF",
-      "sound": "beep.wav"
+      "smallIcon": "ic_stat_icon",
+      "iconColor": "#488AFF"
     },
     "Geolocation": {
       "permissions": ["location"]
