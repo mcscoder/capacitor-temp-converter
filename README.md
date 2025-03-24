@@ -9,6 +9,18 @@ This guide outlines the process for building a React application and deploying i
 - Android Studio installed
 - Capacitor configured in your project
 
+## Installing Dependencies
+
+1. Navigate to your project directory:
+```bash
+cd /path/to/your/project
+```
+
+2. Install project dependencies:
+```bash
+npm install
+```
+
 ## Build Process Steps
 
 1. First, build your React application for production
